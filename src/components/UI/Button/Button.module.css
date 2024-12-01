@@ -1,0 +1,27 @@
+.button {
+  padding: 8px 16px;
+  color: white;
+  background-color: yellowgreen;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+@media (hover: hover) {
+  .button:hover {
+    background-color: #a2e61b;
+  }
+}
+
+.button:active {
+  background-color: #709526;
+}
+
+.button:disabled {
+  background-color: lightgray;
+}
