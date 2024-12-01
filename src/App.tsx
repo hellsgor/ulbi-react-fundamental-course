@@ -1,14 +1,11 @@
-import { useState } from 'react';
-import Counter from './components/Counter';
+import ClassCounter from './components/ClassCounter';
+import Counter from './components/counter';
 
 function App() {
-  const [value, setValue] = useState('ТЕКСТ В ИНПУТЕ');
-
   return (
     <>
       <Counter />
-      <Counter />
-      <Counter />
+      <ClassCounter />
     </>
   );
 }
