@@ -1,12 +1,12 @@
-import ClassCounter from './components/ClassCounter';
-import Counter from './components/counter';
+import { initialPosts } from './assets/data/posts';
+import './styles/App.css';
+import { PostList } from './components/PostList/PostList';
 
-function App() {
+export function App() {
   return (
-    <>
-      <Counter />
-      <ClassCounter />
-    </>
+    <div className="App">
+      <PostList list={initialPosts} title="Список постов" />
+    </div>
   );
 }
 

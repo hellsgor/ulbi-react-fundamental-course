@@ -1,0 +1,27 @@
+.post {
+  display: flex;
+  padding: 16px;
+  border: 2px solid yellowgreen;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  column-gap: 32px;
+}
+
+.post__content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
+.post__id {
+  width: fit-content;
+  padding: 2px 4px;
+  background-color: rgb(237, 237, 237);
+  color: rgb(69, 69, 69);
+  font-size: 8px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-weight: 300;
+}
