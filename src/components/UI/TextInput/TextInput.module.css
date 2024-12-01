@@ -1,0 +1,17 @@
+.text-input {
+  padding: 8px 16px;
+  border: 1px solid lightgray;
+  color: black;
+  font-size: 1rem;
+  width: 100%;
+  transition: border-color 0.3s ease-in-out;
+  outline: none;
+}
+
+.text-input::placeholder {
+  color: lightgray;
+}
+
+.text-input:focus {
+  border-color: yellowgreen;
+}
