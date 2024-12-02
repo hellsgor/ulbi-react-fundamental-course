@@ -2,13 +2,13 @@
   padding: 8px 16px;
   color: white;
   background-color: yellowgreen;
-  border: none;
+  border: 1px solid yellowgreen;
   font-size: 1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   column-gap: 4px;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
   width: fit-content;
   outline: none;
 }
@@ -16,13 +16,39 @@
 @media (hover: hover) {
   .button:hover {
     background-color: #a2e61b;
+    border-color: #a2e61b;
+  }
+}
+
+.button:disabled {
+  background-color: lightgray;
+}
+
+.button_secondary {
+  background-color: transparent;
+  color: yellowgreen;
+}
+
+@media (hover: hover) {
+  .button_secondary:hover {
+    background-color: yellowgreen;
+    border-color: yellowgreen;
+    color: white;
   }
 }
 
 .button:active {
   background-color: #709526;
+  border-color: #709526;
 }
 
-.button:disabled {
-  background-color: lightgray;
+.button_secondary:disabled {
+  border-color: lightgray;
+  color: lightgray;
+  background-color: white;
+}
+
+.button:disabled,
+.button_secondary:disabled {
+  cursor: default;
 }
