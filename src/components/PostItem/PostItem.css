@@ -11,7 +11,16 @@
 .post__content {
   display: flex;
   flex-direction: column;
-  row-gap: 4px;
+}
+
+.post__content > strong {
+  margin-bottom: 4px;
+}
+
+.post__content > span {
+  color: lightgray;
+  font-size: 0.8rem;
+  margin-bottom: 12px;
 }
 
 .post__id {

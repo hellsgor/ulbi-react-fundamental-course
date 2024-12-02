@@ -21,7 +21,8 @@ export const PostItem: FC<PostProps> = ({ post, remove }) => {
 
       <div className="post__content" id={`${post.id}`}>
         <strong>{post.title}</strong>
-        <div>{post.body}</div>
+        <span>{new Date(post.id).toLocaleDateString()}</span>
+        <p>{post.body}</p>
       </div>
 
       <div className="post__btns">
