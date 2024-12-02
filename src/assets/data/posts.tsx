@@ -1,6 +1,6 @@
-import { PostItem } from '../../components/PostItem/PostItem';
+import { Post } from '../../components/PostItem/PostItem';
 
-export const initialPosts: PostItem[] = [
+export const initialPosts: Post[] = [
   {
     id: 1,
     title:

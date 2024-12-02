@@ -3,10 +3,10 @@ import classes from './PostFrom.module.css';
 import { FC, useState } from 'react';
 import { TextInput } from '../UI/TextInput/TextInput';
 import { Button } from '../UI/Button/Button';
-import { PostItem } from '../PostItem/PostItem';
+import { Post } from '../PostItem/PostItem';
 
 export interface PostFormProps {
-  create: (newPost: PostItem) => void;
+  create: (newPost: Post) => void;
 }
 
 export const PostForm: FC<PostFormProps> = ({ create }) => {

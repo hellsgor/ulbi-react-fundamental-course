@@ -1,18 +1,20 @@
 import { FC } from 'react';
 import './PostItem.css';
+import { Button } from '../UI/Button/Button';
 
-export interface PostItemProps {
-  post: PostItem;
+export interface PostProps {
+  post: Post;
+  remove: (post: Post) => void;
 }
 
-export type PostItem = {
+export type Post = {
   id: number;
   title: string;
   body: string;
   userId?: number;
 };
 
-export const PostItem: FC<PostItemProps> = ({ post }) => {
+export const PostItem: FC<PostProps> = ({ post, remove }) => {
   return (
     <div className="post" data-post-id={post.id}>
       <span className="post__id">id: {post.id}</span>
@@ -23,7 +25,9 @@ export const PostItem: FC<PostItemProps> = ({ post }) => {
       </div>
 
       <div className="post__btns">
-        <button>Удалить</button>
+        <Button mods={['secondary']} onClick={() => remove(post)}>
+          Удалить
+        </Button>
       </div>
     </div>
   );
