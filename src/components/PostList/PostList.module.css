@@ -11,3 +11,8 @@
   font-size: 2rem;
   color: lightgray;
 }
+
+.post-list__controls {
+  display: flex;
+  column-gap: 32px;
+}
