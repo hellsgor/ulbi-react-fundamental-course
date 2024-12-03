@@ -1,0 +1,36 @@
+.select {
+  display: flex;
+  column-gap: 8px;
+  align-items: baseline;
+}
+
+.select label {
+  color: gray;
+  font-size: 0.8rem;
+}
+
+.select select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: white;
+  border: 1px solid yellowgreen;
+  padding: 4px 28px 4px 4px;
+  font-size: 0.8rem;
+  outline: none;
+  width: fit-content;
+  cursor: pointer;
+
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 5"><path d="M0 0l5 5 5-5z" fill="gray"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px 5px;
+
+  transition: background-image 0.3s ease-in-out;
+}
+
+@media (hover: hover) {
+  .select select:hover {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 5"><path d="M0 0l5 5 5-5z" fill="yellowgreen"/></svg>');
+  }
+}
