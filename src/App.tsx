@@ -25,7 +25,6 @@ export function App() {
         String(postA[sort])?.localeCompare(String(postB[sort])),
       ),
     );
-    console.log(sort);
   }
 
   return (
