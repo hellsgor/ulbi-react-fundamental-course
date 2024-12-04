@@ -10,6 +10,10 @@ export function App() {
   const [posts, setPosts] = useState(initialPosts);
   const [selectedSort, setSelectedSort] = useState<keyof Post>('id');
 
+  const sortedPosts = [...posts].sort((postA, postB) =>
+    String(postA[selectedSort])?.localeCompare(String(postB[selectedSort])),
+  );
+
   function createPost(newPost: Post): void {
     setPosts([...posts, newPost]);
   }
@@ -20,11 +24,6 @@ export function App() {
 
   function sortPost(sort: keyof Post) {
     setSelectedSort(sort);
-    setPosts(
-      [...posts].sort((postA, postB) =>
-        String(postA[sort])?.localeCompare(String(postB[sort])),
-      ),
-    );
   }
 
   return (
@@ -33,7 +32,7 @@ export function App() {
 
       <PostList
         remove={removePost}
-        list={posts}
+        list={sortedPosts}
         title="Список постов"
         value={selectedSort}
         onChange={sortPost}
