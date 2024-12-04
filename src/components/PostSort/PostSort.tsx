@@ -18,15 +18,13 @@ export const PostSort = ({ value, onChange }: PostSortProps) => {
   };
 
   return (
-    <div className="">
-      <Select
-        options={props.options}
-        defaultValue={props.defaultValue}
-        label={props.label}
-        id={props.id}
-        value={value}
-        onChange={onChange}
-      />
-    </div>
+    <Select
+      options={props.options}
+      defaultValue={props.defaultValue}
+      label={props.label}
+      id={props.id}
+      value={value}
+      onChange={onChange}
+    />
   );
 };
