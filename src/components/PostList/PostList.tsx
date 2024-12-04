@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Post, PostItem, PostProps } from '../PostItem/PostItem';
 import classes from './PostList.module.css';
 import { PostSort, PostSortProps } from '../PostSort/PostSort';
+import { PostSearch } from '../PostSearch/PostSearch';
 
 interface PostListProps extends PostSortProps {
   list: Post[];
@@ -22,9 +23,10 @@ export const PostList: FC<PostListProps> = ({
 
       <div className={classes['post-list__controls']}>
         <PostSort value={value} onChange={onChange} />
+        <PostSearch />
       </div>
 
-      <div className="post-list__posts">
+      <div className={classes['post-list__posts']}>
         {list.map((post) => (
           <PostItem remove={remove} post={post} key={post.id} />
         ))}
