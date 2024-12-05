@@ -1,14 +1,14 @@
 import './styles/App.css';
 
 import { initialPosts } from './assets/data/posts';
-import { PostList } from './components/PostList/PostList';
+import { PostList, PostSort } from './components/PostList/PostList';
 import { PostForm } from './components/PostForm/PostForm';
 import { Post } from './components/PostItem/PostItem';
 import { useState } from 'react';
 
-export function App() {
+function App() {
   const [posts, setPosts] = useState(initialPosts);
-  const [selectedSort, setSelectedSort] = useState<keyof Post>('id');
+  const [selectedSort, setSelectedSort] = useState<PostSort>('id');
   const [searchQuery, setSearchQuery] = useState('');
 
   const foundPosts = searchQuery
@@ -33,7 +33,7 @@ export function App() {
     setPosts(posts.filter((p) => p.id !== post.id));
   }
 
-  function sortPost(sort: keyof Post) {
+  function sortPost(sort: PostSort) {
     setSelectedSort(sort);
   }
 
