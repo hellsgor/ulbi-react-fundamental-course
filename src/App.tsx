@@ -4,25 +4,29 @@ import { initialPosts } from './assets/data/posts';
 import { PostList, PostSort } from './components/PostList/PostList';
 import { PostForm } from './components/PostForm/PostForm';
 import { Post } from './components/PostItem/PostItem';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 function App() {
-  const [posts, setPosts] = useState(initialPosts);
+  const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [selectedSort, setSelectedSort] = useState<PostSort>('id');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const foundPosts = searchQuery
-    ? posts.filter((post) => {
-        const query = searchQuery.toLowerCase();
-        return (
-          post.title.toLowerCase().includes(query) ||
-          post.body.toLowerCase().includes(query)
-        );
-      })
-    : posts;
+  const sortedPosts = useMemo(
+    () =>
+      [...posts].sort((postA, postB) =>
+        String(postA[selectedSort])?.localeCompare(String(postB[selectedSort])),
+      ),
+    [selectedSort, posts],
+  );
 
-  const sortedPosts = [...foundPosts].sort((postA, postB) =>
-    String(postA[selectedSort])?.localeCompare(String(postB[selectedSort])),
+  const foundPosts = useMemo(
+    () =>
+      sortedPosts.filter(
+        (post) =>
+          post.title.toLowerCase().includes(searchQuery) ||
+          post.body.toLowerCase().includes(searchQuery),
+      ),
+    [searchQuery, sortedPosts],
   );
 
   function createPost(newPost: Post): void {
@@ -38,7 +42,7 @@ function App() {
   }
 
   function searchPost(query: string) {
-    setSearchQuery(query);
+    setSearchQuery(query.toLowerCase());
   }
 
   return (
@@ -47,7 +51,7 @@ function App() {
 
       <PostList
         remove={removePost}
-        list={sortedPosts}
+        list={foundPosts}
         title="Список постов"
         value={selectedSort}
         onChange={sortPost}
