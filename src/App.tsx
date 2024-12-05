@@ -9,8 +9,19 @@ import { useState } from 'react';
 export function App() {
   const [posts, setPosts] = useState(initialPosts);
   const [selectedSort, setSelectedSort] = useState<keyof Post>('id');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const sortedPosts = [...posts].sort((postA, postB) =>
+  const foundPosts = searchQuery
+    ? posts.filter((post) => {
+        const query = searchQuery.toLowerCase();
+        return (
+          post.title.toLowerCase().includes(query) ||
+          post.body.toLowerCase().includes(query)
+        );
+      })
+    : posts;
+
+  const sortedPosts = [...foundPosts].sort((postA, postB) =>
     String(postA[selectedSort])?.localeCompare(String(postB[selectedSort])),
   );
 
@@ -26,6 +37,10 @@ export function App() {
     setSelectedSort(sort);
   }
 
+  function searchPost(query: string) {
+    setSearchQuery(query);
+  }
+
   return (
     <div className="App">
       <PostForm create={createPost} />
@@ -36,6 +51,8 @@ export function App() {
         title="Список постов"
         value={selectedSort}
         onChange={sortPost}
+        searchQuery={searchQuery}
+        onSearch={searchPost}
       />
     </div>
   );
