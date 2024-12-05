@@ -1,28 +1,34 @@
 import './styles/App.css';
 
 import { initialPosts } from './assets/data/posts';
-import { PostList, PostSort } from './components/PostList/PostList';
+import { PostList, PostListFilter } from './components/PostList/PostList';
 import { PostForm } from './components/PostForm/PostForm';
 import { Post } from './components/PostItem/PostItem';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 function App() {
-  const [posts, setPosts] = useState(initialPosts);
-  const [selectedSort, setSelectedSort] = useState<PostSort>('id');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [posts, setPosts] = useState<Post[]>(initialPosts);
+  const [filter, setFilter] = useState<PostListFilter>({
+    sort: 'id',
+    filter: '',
+  });
 
-  const foundPosts = searchQuery
-    ? posts.filter((post) => {
-        const query = searchQuery.toLowerCase();
-        return (
-          post.title.toLowerCase().includes(query) ||
-          post.body.toLowerCase().includes(query)
-        );
-      })
-    : posts;
+  const sortedPosts = useMemo(
+    () =>
+      [...posts].sort((postA, postB) =>
+        String(postA[filter.sort])?.localeCompare(String(postB[filter.sort])),
+      ),
+    [filter.sort, posts],
+  );
 
-  const sortedPosts = [...foundPosts].sort((postA, postB) =>
-    String(postA[selectedSort])?.localeCompare(String(postB[selectedSort])),
+  const foundPosts = useMemo(
+    () =>
+      sortedPosts.filter(
+        (post) =>
+          post.title.toLowerCase().includes(filter.filter) ||
+          post.body.toLowerCase().includes(filter.filter),
+      ),
+    [filter.filter, sortedPosts],
   );
 
   function createPost(newPost: Post): void {
@@ -33,26 +39,16 @@ function App() {
     setPosts(posts.filter((p) => p.id !== post.id));
   }
 
-  function sortPost(sort: PostSort) {
-    setSelectedSort(sort);
-  }
-
-  function searchPost(query: string) {
-    setSearchQuery(query);
-  }
-
   return (
     <div className="App">
       <PostForm create={createPost} />
 
       <PostList
         remove={removePost}
-        list={sortedPosts}
+        list={foundPosts}
         title="Список постов"
-        value={selectedSort}
-        onChange={sortPost}
-        searchQuery={searchQuery}
-        onSearch={searchPost}
+        filter={filter}
+        setFilter={setFilter}
       />
     </div>
   );

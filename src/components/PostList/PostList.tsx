@@ -5,26 +5,24 @@ import { Post, PostItem, PostProps } from '../PostItem/PostItem';
 import { TextInput } from '../UI/TextInput/TextInput';
 import { Select } from '../UI/Select/Select';
 
-export type PostSort = keyof Omit<Post, 'userId'>;
-
+export type PostListFilter = {
+  sort: keyof Omit<Post, 'userId'>;
+  filter: string;
+};
 interface PostListProps {
   list: Post[];
   title: string;
   remove: PostProps['remove'];
-  searchQuery: string;
-  onSearch: (value: string) => void;
-  value: PostSort;
-  onChange: (value: PostSort) => void;
+  filter: PostListFilter;
+  setFilter: (value: PostListFilter) => void;
 }
 
 export const PostList: FC<PostListProps> = ({
   list,
   title,
   remove,
-  value,
-  onChange,
-  searchQuery,
-  onSearch,
+  filter,
+  setFilter,
 }) => {
   return (
     <div className={classes['post-list']}>
@@ -39,8 +37,10 @@ export const PostList: FC<PostListProps> = ({
           defaultValue={{ value: 'id', text: 'По дате' }}
           label={'Сортировка:'}
           id={'post-sort'}
-          value={value}
-          onChange={onChange}
+          value={filter.sort}
+          onChange={(selectedSort) =>
+            setFilter({ ...filter, sort: selectedSort })
+          }
         />
 
         <TextInput
@@ -48,8 +48,10 @@ export const PostList: FC<PostListProps> = ({
           id="post-search"
           placeholder="Введите запрос"
           mods={{ small: true, horizontal: true }}
-          onChange={(event) => onSearch(event.target.value)}
-          value={searchQuery}
+          onChange={(event) =>
+            setFilter({ ...filter, filter: event.target.value })
+          }
+          value={filter.filter}
         />
       </div>
 
