@@ -1,32 +1,34 @@
 import './styles/App.css';
 
 import { initialPosts } from './assets/data/posts';
-import { PostList, PostSort } from './components/PostList/PostList';
+import { PostList, PostListFilter } from './components/PostList/PostList';
 import { PostForm } from './components/PostForm/PostForm';
 import { Post } from './components/PostItem/PostItem';
 import { useMemo, useState } from 'react';
 
 function App() {
   const [posts, setPosts] = useState<Post[]>(initialPosts);
-  const [selectedSort, setSelectedSort] = useState<PostSort>('id');
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [filter, setFilter] = useState<PostListFilter>({
+    sort: 'id',
+    filter: '',
+  });
 
   const sortedPosts = useMemo(
     () =>
       [...posts].sort((postA, postB) =>
-        String(postA[selectedSort])?.localeCompare(String(postB[selectedSort])),
+        String(postA[filter.sort])?.localeCompare(String(postB[filter.sort])),
       ),
-    [selectedSort, posts],
+    [filter.sort, posts],
   );
 
   const foundPosts = useMemo(
     () =>
       sortedPosts.filter(
         (post) =>
-          post.title.toLowerCase().includes(searchQuery) ||
-          post.body.toLowerCase().includes(searchQuery),
+          post.title.toLowerCase().includes(filter.filter) ||
+          post.body.toLowerCase().includes(filter.filter),
       ),
-    [searchQuery, sortedPosts],
+    [filter.filter, sortedPosts],
   );
 
   function createPost(newPost: Post): void {
@@ -37,14 +39,6 @@ function App() {
     setPosts(posts.filter((p) => p.id !== post.id));
   }
 
-  function sortPost(sort: PostSort) {
-    setSelectedSort(sort);
-  }
-
-  function searchPost(query: string) {
-    setSearchQuery(query.toLowerCase());
-  }
-
   return (
     <div className="App">
       <PostForm create={createPost} />
@@ -53,10 +47,8 @@ function App() {
         remove={removePost}
         list={foundPosts}
         title="Список постов"
-        value={selectedSort}
-        onChange={sortPost}
-        searchQuery={searchQuery}
-        onSearch={searchPost}
+        filter={filter}
+        setFilter={setFilter}
       />
     </div>
   );
