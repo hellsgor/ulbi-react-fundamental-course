@@ -1,3 +1,4 @@
+import { generateId } from '../../../utils/generateId';
 import classes from './Select.module.css';
 
 export type SelectOption = { value: string; text: string };
@@ -21,7 +22,7 @@ export const Select = <T extends string>({
   id = null,
   name = null,
 }: SelectProps<T>) => {
-  const ids = `select-${id ? id : Math.floor(Math.random() * 1001)}`;
+  const ids = id ? id.toString() : generateId('select', id);
 
   return (
     <div className={classes.select}>

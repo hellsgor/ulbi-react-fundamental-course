@@ -1,4 +1,11 @@
 .text-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  row-gap: 4px;
+}
+
+.text-input input {
   padding: 8px 16px;
   border: 1px solid lightgray;
   color: black;
@@ -6,12 +13,34 @@
   width: 100%;
   transition: border-color 0.3s ease-in-out;
   outline: none;
+  width: 100%;
 }
 
-.text-input::placeholder {
+.text-input label {
+  color: gray;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.text-input input::placeholder {
   color: lightgray;
 }
 
-.text-input:focus {
+.text-input_small input {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+}
+
+.text-input_small label {
+  font-size: 0.8rem;
+}
+
+.text-input_horizontal {
+  flex-direction: row;
+  column-gap: 8px;
+  align-items: baseline;
+}
+
+.text-input input:focus {
   border-color: yellowgreen;
 }

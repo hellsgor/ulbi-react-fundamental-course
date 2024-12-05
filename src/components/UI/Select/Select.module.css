@@ -14,8 +14,8 @@
   -moz-appearance: none;
   appearance: none;
   background-color: white;
-  border: 1px solid yellowgreen;
-  padding: 4px 28px 4px 4px;
+  border: 1px solid lightgray;
+  padding: 4px 32px 4px 8px;
   font-size: 0.8rem;
   outline: none;
   width: fit-content;
