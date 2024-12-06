@@ -50,7 +50,7 @@ export const PostList: FC<PostListProps> = ({
           label="Поиск по постам:"
           id="post-search"
           placeholder="Введите запрос"
-          mods={{ small: true, horizontal: true }}
+          mods={{ horizontal: true }}
           onChange={(event) =>
             setFilter({ ...filter, filter: event.target.value })
           }
