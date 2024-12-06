@@ -9,7 +9,7 @@ export type TextInputModifiers = 'small' | 'horizontal';
 export interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   id?: string;
-  mods?: Record<TextInputModifiers, boolean>;
+  mods?: Partial<Record<TextInputModifiers, boolean>>;
 }
 
 export const TextInput: FC<TextInputProps> = ({
