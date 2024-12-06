@@ -18,7 +18,10 @@
   background-color: white;
   min-width: 480px;
   height: fit-content;
+}
 
+.modalContent h2 {
+  text-align: center;
 }
 
 .modalClose {
