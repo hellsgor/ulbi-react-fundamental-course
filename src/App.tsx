@@ -5,6 +5,7 @@ import { PostList, PostListFilter } from './components/PostList/PostList';
 import { PostForm } from './components/PostForm/PostForm';
 import { Post } from './components/PostItem/PostItem';
 import { useMemo, useState } from 'react';
+import { Modal } from './components/Modal/Modal';
 
 function App() {
   const [posts, setPosts] = useState<Post[]>(initialPosts);
@@ -12,6 +13,7 @@ function App() {
     sort: 'id',
     filter: '',
   });
+  const [modal, setModal] = useState(false);
 
   const sortedPosts = useMemo(
     () =>
@@ -33,6 +35,7 @@ function App() {
 
   function createPost(newPost: Post): void {
     setPosts([...posts, newPost]);
+    setModal(false);
   }
 
   function removePost(post: Post) {
@@ -41,7 +44,9 @@ function App() {
 
   return (
     <div className="App">
-      <PostForm create={createPost} />
+      <Modal visible={modal} setVisible={setModal}>
+        <PostForm create={createPost} />
+      </Modal>
 
       <PostList
         remove={removePost}
