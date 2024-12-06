@@ -54,6 +54,7 @@ function App() {
         title="Список постов"
         filter={filter}
         setFilter={setFilter}
+        setFormVisible={setModal}
       />
     </div>
   );
