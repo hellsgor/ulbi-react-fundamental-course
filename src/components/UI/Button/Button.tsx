@@ -1,20 +1,20 @@
 import classes from './Button.module.css';
 
 import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
-import { generateClassNames } from '../../../utils/generateClassNames';
+import { getClassNames } from '../../../utils/generateClassNames';
 
-export type ButtonMods = 'secondary';
+export type ButtonMods = 'secondary' | 'wide';
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  mods?: Record<ButtonMods, boolean>;
+  mods?: Partial<Record<ButtonMods, boolean>>;
 }
 
 export const Button: FC<ButtonProps> = ({ children, mods, ...props }) => {
   return (
     <button
-      className={generateClassNames({
+      className={getClassNames({
         classes,
-        baseClass: classes.button,
+        root: classes.button,
         mods,
       })}
       {...props}

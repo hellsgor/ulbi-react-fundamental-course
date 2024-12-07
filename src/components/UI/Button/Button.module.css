@@ -6,11 +6,13 @@
   font-size: 1rem;
   cursor: pointer;
   display: flex;
+  justify-content: center;
   align-items: center;
   column-gap: 4px;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
   width: fit-content;
   outline: none;
+  white-space: nowrap;
 }
 
 @media (hover: hover) {
@@ -24,13 +26,17 @@
   background-color: lightgray;
 }
 
-.button_secondary {
+.secondary {
   background-color: transparent;
   color: yellowgreen;
 }
 
+.wide {
+  width: 100%;
+}
+
 @media (hover: hover) {
-  .button_secondary:hover {
+  .secondary:hover {
     background-color: yellowgreen;
     border-color: yellowgreen;
     color: white;
@@ -42,13 +48,13 @@
   border-color: #709526;
 }
 
-.button_secondary:disabled {
+.secondary:disabled {
   border-color: lightgray;
   color: lightgray;
   background-color: white;
 }
 
 .button:disabled,
-.button_secondary:disabled {
+.secondary:disabled {
   cursor: default;
 }

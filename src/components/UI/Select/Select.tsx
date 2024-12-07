@@ -1,7 +1,10 @@
+import { getClassNames } from '../../../utils/generateClassNames';
 import { generateId } from '../../../utils/generateId';
 import classes from './Select.module.css';
 
 export type SelectOption = { value: string; text: string };
+
+export type SelectMods = 'small';
 
 export interface SelectProps<T> {
   options: SelectOption[];
@@ -9,6 +12,7 @@ export interface SelectProps<T> {
   label?: string | null;
   id?: string | null;
   name?: string | null;
+  mods?: Partial<Record<SelectMods, true>>;
   value: T;
   onChange: (value: T) => void;
 }
@@ -21,11 +25,12 @@ export const Select = <T extends string>({
   label = null,
   id = null,
   name = null,
+  mods,
 }: SelectProps<T>) => {
   const ids = id ? id.toString() : generateId('select', id);
 
   return (
-    <div className={classes.select}>
+    <div className={getClassNames({ mods, classes, root: classes.select })}>
       {label && <label htmlFor={ids}>{label}</label>}
 
       <select

@@ -6,7 +6,7 @@
 
 .select label {
   color: gray;
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 
 .select select {
@@ -15,8 +15,8 @@
   appearance: none;
   background-color: white;
   border: 1px solid lightgray;
-  padding: 4px 32px 4px 8px;
-  font-size: 0.8rem;
+  padding: 8px 40px 8px 16px;
+  font-size: 1rem;
   outline: none;
   width: fit-content;
   cursor: pointer;
@@ -27,6 +27,15 @@
   background-size: 10px 5px;
 
   transition: background-image 0.3s ease-in-out;
+}
+
+.small select {
+  padding: 4px 32px 4px 8px;
+  font-size: 0.8rem;
+}
+
+.small label {
+  font-size: 0.8rem;
 }
 
 @media (hover: hover) {

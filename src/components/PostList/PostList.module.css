@@ -1,5 +1,5 @@
-.post-list,
-.post-list__posts {
+.postList,
+.postListPosts {
   display: flex;
   flex-direction: column;
   row-gap: 16px;
@@ -7,14 +7,14 @@
 
 
 
-.post-list > p {
+.postList > p {
   padding: 64px 0;
   text-align: center;
   font-size: 2rem;
   color: lightgray;
 }
 
-.post-list__controls {
+.postListControls {
   display: flex;
   column-gap: 32px;
 }

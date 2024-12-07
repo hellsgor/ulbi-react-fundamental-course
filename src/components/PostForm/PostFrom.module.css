@@ -1,5 +1,11 @@
-.post-form {
+.postForm,
+.postForm > form {
   display: flex;
   flex-direction: column;
-  row-gap: 8px;
+  row-gap: 16px;
+  align-items: center;
+}
+
+.postForm > form {
+  width: 100%;
 }

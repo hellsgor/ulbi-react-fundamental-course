@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { Post, PostItem, PostProps } from '../PostItem/PostItem';
 import { TextInput } from '../UI/TextInput/TextInput';
 import { Select } from '../UI/Select/Select';
+import { Button } from '../UI/Button/Button';
 
 export type PostListFilter = {
   sort: keyof Omit<Post, 'userId'>;
@@ -15,6 +16,7 @@ interface PostListProps {
   remove: PostProps['remove'];
   filter: PostListFilter;
   setFilter: (value: PostListFilter) => void;
+  setFormVisible: (value: true) => void;
 }
 
 export const PostList: FC<PostListProps> = ({
@@ -23,12 +25,13 @@ export const PostList: FC<PostListProps> = ({
   remove,
   filter,
   setFilter,
+  setFormVisible,
 }) => {
   return (
-    <div className={classes['post-list']}>
+    <div className={classes.postList}>
       <h2 style={{ textAlign: 'center' }}>{title}</h2>
 
-      <div className={classes['post-list__controls']}>
+      <div className={classes.postListControls}>
         <Select
           options={[
             { value: 'title', text: 'По заголовкам' },
@@ -47,16 +50,20 @@ export const PostList: FC<PostListProps> = ({
           label="Поиск по постам:"
           id="post-search"
           placeholder="Введите запрос"
-          mods={{ small: true, horizontal: true }}
+          mods={{ horizontal: true }}
           onChange={(event) =>
             setFilter({ ...filter, filter: event.target.value })
           }
           value={filter.filter}
         />
+
+        <Button type="button" onClick={() => setFormVisible(true)}>
+          Создать пост
+        </Button>
       </div>
 
       {list.length ? (
-        <div className={classes['post-list__posts']}>
+        <div className={classes.postListPosts}>
           {list.map((post) => (
             <PostItem remove={remove} post={post} key={post.id} />
           ))}
