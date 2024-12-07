@@ -41,7 +41,7 @@ export const PostForm: FC<PostFormProps> = ({ create }) => {
           value={post.body}
         />
 
-        <Button onClick={addPost} type="button">
+        <Button onClick={addPost} type="button" mods={{ wide: true }}>
           <span>Создать</span>
         </Button>
       </form>
