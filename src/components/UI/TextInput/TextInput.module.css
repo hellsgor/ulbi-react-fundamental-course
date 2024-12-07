@@ -1,11 +1,11 @@
-.text-input {
+.textInput {
   display: flex;
   flex-direction: column;
   width: 100%;
   row-gap: 4px;
 }
 
-.text-input input {
+.textInput input {
   padding: 8px 16px;
   border: 1px solid lightgray;
   color: black;
@@ -16,31 +16,31 @@
   width: 100%;
 }
 
-.text-input label {
+.textInput label {
   color: gray;
   font-size: 1rem;
   white-space: nowrap;
 }
 
-.text-input input::placeholder {
+.textInput input::placeholder {
   color: lightgray;
 }
 
-.text-input_small input {
+.small input {
   font-size: 0.8rem;
   padding: 4px 8px;
 }
 
-.text-input_small label {
+.small label {
   font-size: 0.8rem;
 }
 
-.text-input_horizontal {
+.horizontal {
   flex-direction: row;
   column-gap: 8px;
   align-items: baseline;
 }
 
-.text-input input:focus {
+.textInput input:focus {
   border-color: yellowgreen;
 }

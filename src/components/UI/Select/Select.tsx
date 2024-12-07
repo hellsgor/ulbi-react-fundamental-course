@@ -1,3 +1,4 @@
+import { getClassNames } from '../../../utils/generateClassNames';
 import { generateId } from '../../../utils/generateId';
 import classes from './Select.module.css';
 
@@ -28,12 +29,8 @@ export const Select = <T extends string>({
 }: SelectProps<T>) => {
   const ids = id ? id.toString() : generateId('select', id);
 
-  const rootClass = mods
-    ? [classes.select].concat(Object.keys(mods).map((key) => classes[key]))
-    : [classes.select];
-
   return (
-    <div className={rootClass.join(' ')}>
+    <div className={getClassNames({ mods, classes, root: classes.select })}>
       {label && <label htmlFor={ids}>{label}</label>}
 
       <select

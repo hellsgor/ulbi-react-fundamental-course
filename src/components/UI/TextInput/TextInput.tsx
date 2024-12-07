@@ -2,7 +2,7 @@ import classes from './TextInput.module.css';
 
 import { InputHTMLAttributes, FC } from 'react';
 import { generateId } from '../../../utils/generateId';
-import { generateClassNames } from '../../../utils/generateClassNames';
+import { getClassNames } from '../../../utils/generateClassNames';
 
 export type TextInputModifiers = 'small' | 'horizontal';
 
@@ -22,10 +22,10 @@ export const TextInput: FC<TextInputProps> = ({
 
   return (
     <div
-      className={generateClassNames({
-        baseClass: classes['text-input'],
-        classes,
+      className={getClassNames({
         mods,
+        classes,
+        root: classes.textInput,
       })}
     >
       {label && <label htmlFor={ids}>{label}</label>}

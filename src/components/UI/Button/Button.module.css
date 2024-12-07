@@ -25,13 +25,13 @@
   background-color: lightgray;
 }
 
-.button_secondary {
+.secondary {
   background-color: transparent;
   color: yellowgreen;
 }
 
 @media (hover: hover) {
-  .button_secondary:hover {
+  .secondary:hover {
     background-color: yellowgreen;
     border-color: yellowgreen;
     color: white;
@@ -43,13 +43,13 @@
   border-color: #709526;
 }
 
-.button_secondary:disabled {
+.secondary:disabled {
   border-color: lightgray;
   color: lightgray;
   background-color: white;
 }
 
 .button:disabled,
-.button_secondary:disabled {
+.secondary:disabled {
   cursor: default;
 }
