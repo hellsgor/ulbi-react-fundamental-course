@@ -13,8 +13,11 @@ export const Modal: FC<ModalProps> = ({ children, visible, setVisible }) => {
   if (visible) rootClasses.push(classes.modalActive);
 
   return (
-    <div className={rootClasses.join(' ')}>
-      <div className={classes.modalContent}>
+    <div className={rootClasses.join(' ')} onClick={() => setVisible(false)}>
+      <div
+        className={classes.modalContent}
+        onClick={(event) => event.stopPropagation()}
+      >
         <button
           className={classes.modalClose}
           onClick={() => setVisible(false)}
