@@ -5,6 +5,7 @@ import { Post, PostItem, PostProps } from '../PostItem/PostItem';
 import { TextInput } from '../UI/TextInput/TextInput';
 import { Select } from '../UI/Select/Select';
 import { Button } from '../UI/Button/Button';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 export type PostListFilter = {
   sort: keyof Omit<Post, 'userId'>;
@@ -63,11 +64,13 @@ export const PostList: FC<PostListProps> = ({
       </div>
 
       {list.length ? (
-        <div className={classes.postListPosts}>
+        <TransitionGroup className={classes.postListPosts}>
           {list.map((post) => (
-            <PostItem remove={remove} post={post} key={post.id} />
+            <CSSTransition key={post.id} timeout={300} classNames="post">
+              <PostItem remove={remove} post={post} />
+            </CSSTransition>
           ))}
-        </div>
+        </TransitionGroup>
       ) : (
         <p className="post-list__no-posts">Посты не найдены :(</p>
       )}
