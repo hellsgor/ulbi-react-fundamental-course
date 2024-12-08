@@ -4,34 +4,18 @@ import { initialPosts } from './assets/data/posts';
 import { PostList, PostListFilter } from './components/PostList/PostList';
 import { PostForm } from './components/PostForm/PostForm';
 import { Post } from './components/PostItem/PostItem';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Modal } from './components/Modal/Modal';
+import { usePosts } from './hooks/usePosts';
 
 function App() {
   const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [filter, setFilter] = useState<PostListFilter>({
     sort: 'id',
-    filter: '',
+    query: '',
   });
   const [modal, setModal] = useState(false);
-
-  const sortedPosts = useMemo(
-    () =>
-      [...posts].sort((postA, postB) =>
-        String(postA[filter.sort])?.localeCompare(String(postB[filter.sort])),
-      ),
-    [filter.sort, posts],
-  );
-
-  const foundPosts = useMemo(
-    () =>
-      sortedPosts.filter(
-        (post) =>
-          post.title.toLowerCase().includes(filter.filter) ||
-          post.body.toLowerCase().includes(filter.filter),
-      ),
-    [filter.filter, sortedPosts],
-  );
+  const foundPosts = usePosts(posts, filter);
 
   function createPost(newPost: Post): void {
     setPosts([...posts, newPost]);
