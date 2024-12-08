@@ -34,16 +34,6 @@ function App() {
     setPosts(posts.filter((p) => p.id !== post.id));
   }
 
-  // async function fetchPosts() {
-  //   try {
-  //     setIsPostsLoading(true);
-  //     setPosts(await PostService.getAll());
-  //     setIsPostsLoading(false);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
   return (
     <div className="App">
       <Modal visible={modal} setVisible={setModal}>
