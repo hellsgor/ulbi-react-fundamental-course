@@ -20,6 +20,7 @@ interface PostListProps {
   filter: PostListFilter;
   setFilter: (value: PostListFilter) => void;
   setFormVisible: (value: true) => void;
+  loading: boolean;
 }
 
 export const PostList: FC<PostListProps> = ({
@@ -29,6 +30,7 @@ export const PostList: FC<PostListProps> = ({
   filter,
   setFilter,
   setFormVisible,
+  loading,
 }) => {
   return (
     <div className={classes.postList}>
@@ -65,7 +67,9 @@ export const PostList: FC<PostListProps> = ({
         </Button>
       </div>
 
-      {list.length ? (
+      {loading ? (
+        <p>Идёт загрузка...</p>
+      ) : list.length ? (
         <TransitionGroup className={classes.postListPosts}>
           {list.map((post) => (
             <CSSTransition key={post.id} timeout={300} classNames="post">
@@ -74,7 +78,7 @@ export const PostList: FC<PostListProps> = ({
           ))}
         </TransitionGroup>
       ) : (
-        <p className="post-list__no-posts">Посты не найдены :(</p>
+        <p>Посты не найдены :(</p>
       )}
     </div>
   );

@@ -16,6 +16,7 @@ function App() {
   });
   const [modal, setModal] = useState(false);
   const foundPosts = usePosts(posts, filter);
+  const [isPostsLoading, setIsPostsLoading] = useState(false);
 
   useEffect(() => {
     fetchPosts();
@@ -32,7 +33,9 @@ function App() {
 
   async function fetchPosts() {
     try {
+      setIsPostsLoading(true);
       setPosts(await PostService.getAll());
+      setIsPostsLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -51,6 +54,7 @@ function App() {
         filter={filter}
         setFilter={setFilter}
         setFormVisible={setModal}
+        loading={isPostsLoading}
       />
     </div>
   );
