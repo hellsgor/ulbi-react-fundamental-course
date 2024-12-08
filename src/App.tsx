@@ -7,6 +7,7 @@ import { Modal } from './components/Modal/Modal';
 import { usePosts } from './hooks/usePosts';
 import { Post } from './types/Post';
 import PostService from './api/PostService';
+import { useFetching } from './hooks/useFetching';
 
 function App() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -16,7 +17,9 @@ function App() {
   });
   const [modal, setModal] = useState(false);
   const foundPosts = usePosts(posts, filter);
-  const [isPostsLoading, setIsPostsLoading] = useState(false);
+  const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+    setPosts(await PostService.getAll());
+  });
 
   useEffect(() => {
     fetchPosts();
@@ -31,15 +34,15 @@ function App() {
     setPosts(posts.filter((p) => p.id !== post.id));
   }
 
-  async function fetchPosts() {
-    try {
-      setIsPostsLoading(true);
-      setPosts(await PostService.getAll());
-      setIsPostsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // async function fetchPosts() {
+  //   try {
+  //     setIsPostsLoading(true);
+  //     setPosts(await PostService.getAll());
+  //     setIsPostsLoading(false);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   return (
     <div className="App">
@@ -55,6 +58,7 @@ function App() {
         setFilter={setFilter}
         setFormVisible={setModal}
         loading={isPostsLoading}
+        error={postError}
       />
     </div>
   );

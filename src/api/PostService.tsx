@@ -4,7 +4,7 @@ import { PostList, PostListSchema } from '../types/Post';
 export default class PostService {
   static async getAll(): Promise<PostList> {
     return await axios
-      .get('https://jsonplaceholder.typicode.com/posts')
+      .get('https://jsonplaceholder.typicode.com/pos')
       .then((response) => {
         if (response.status >= 400) throw new Error();
         return response;

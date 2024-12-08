@@ -22,6 +22,7 @@ interface PostListProps {
   setFilter: (value: PostListFilter) => void;
   setFormVisible: (value: true) => void;
   loading: boolean;
+  error: Error | null;
 }
 
 export const PostList: FC<PostListProps> = ({
@@ -32,6 +33,7 @@ export const PostList: FC<PostListProps> = ({
   setFilter,
   setFormVisible,
   loading,
+  error,
 }) => {
   return (
     <div className={classes.postList}>
@@ -68,6 +70,8 @@ export const PostList: FC<PostListProps> = ({
         </Button>
       </div>
 
+      {}
+
       {loading ? (
         <div
           style={{
@@ -87,6 +91,11 @@ export const PostList: FC<PostListProps> = ({
             </CSSTransition>
           ))}
         </TransitionGroup>
+      ) : error ? (
+        <p className={classes.error}>
+          Произошла ошибка:{' '}
+          {error?.message ? error.message : 'Неизвестная ошибка'}
+        </p>
       ) : (
         <p>Посты не найдены :(</p>
       )}
