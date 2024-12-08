@@ -1,18 +1,12 @@
 import { FC } from 'react';
 import './PostItem.css';
 import { Button } from '../UI/Button/Button';
+import { Post } from '../../types/Post';
 
 export interface PostProps {
   post: Post;
   remove: (post: Post) => void;
 }
-
-export type Post = {
-  id: number;
-  title: string;
-  body: string;
-  userId?: number;
-};
 
 export const PostItem: FC<PostProps> = ({ post, remove }) => {
   return (
