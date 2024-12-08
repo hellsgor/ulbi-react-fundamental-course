@@ -7,6 +7,7 @@ import { TextInput } from '../UI/TextInput/TextInput';
 import { Select } from '../UI/Select/Select';
 import { Button } from '../UI/Button/Button';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { Loader } from '../UI/Loader/Loader.tsx';
 
 export type PostListFilter = {
   sort: keyof Omit<Post, 'userId'>;
@@ -68,7 +69,16 @@ export const PostList: FC<PostListProps> = ({
       </div>
 
       {loading ? (
-        <p>Идёт загрузка...</p>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '50px',
+          }}
+        >
+          <Loader />
+        </div>
       ) : list.length ? (
         <TransitionGroup className={classes.postListPosts}>
           {list.map((post) => (
