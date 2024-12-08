@@ -9,7 +9,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 export type PostListFilter = {
   sort: keyof Omit<Post, 'userId'>;
-  filter: string;
+  query: string;
 };
 interface PostListProps {
   list: Post[];
@@ -53,9 +53,9 @@ export const PostList: FC<PostListProps> = ({
           placeholder="Введите запрос"
           mods={{ horizontal: true }}
           onChange={(event) =>
-            setFilter({ ...filter, filter: event.target.value })
+            setFilter({ ...filter, query: event.target.value })
           }
-          value={filter.filter}
+          value={filter.query}
         />
 
         <Button type="button" onClick={() => setFormVisible(true)}>
