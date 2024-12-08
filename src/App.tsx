@@ -1,21 +1,25 @@
 import './styles/App.css';
 
-import { initialPosts } from './assets/data/posts';
 import { PostList, PostListFilter } from './components/PostList/PostList';
 import { PostForm } from './components/PostForm/PostForm';
-import { Post } from './components/PostItem/PostItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Modal } from './components/Modal/Modal';
 import { usePosts } from './hooks/usePosts';
+import { Post } from './types/Post';
+import PostService from './api/PostService';
 
 function App() {
-  const [posts, setPosts] = useState<Post[]>(initialPosts);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [filter, setFilter] = useState<PostListFilter>({
     sort: 'id',
     query: '',
   });
   const [modal, setModal] = useState(false);
   const foundPosts = usePosts(posts, filter);
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   function createPost(newPost: Post): void {
     setPosts([...posts, newPost]);
@@ -24,6 +28,14 @@ function App() {
 
   function removePost(post: Post) {
     setPosts(posts.filter((p) => p.id !== post.id));
+  }
+
+  async function fetchPosts() {
+    try {
+      setPosts(await PostService.getAll());
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
