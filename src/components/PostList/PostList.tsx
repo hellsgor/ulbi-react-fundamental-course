@@ -1,16 +1,19 @@
 import classes from './PostList.module.css';
 
 import { FC } from 'react';
-import { Post, PostItem, PostProps } from '../PostItem/PostItem';
+import { Post } from '../../types/Post.tsx';
+import { PostItem, PostProps } from '../PostItem/PostItem';
 import { TextInput } from '../UI/TextInput/TextInput';
 import { Select } from '../UI/Select/Select';
 import { Button } from '../UI/Button/Button';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { Loader } from '../UI/Loader/Loader.tsx';
 
 export type PostListFilter = {
   sort: keyof Omit<Post, 'userId'>;
   query: string;
 };
+
 interface PostListProps {
   list: Post[];
   title: string;
@@ -18,6 +21,8 @@ interface PostListProps {
   filter: PostListFilter;
   setFilter: (value: PostListFilter) => void;
   setFormVisible: (value: true) => void;
+  loading: boolean;
+  error: Error | null;
 }
 
 export const PostList: FC<PostListProps> = ({
@@ -27,6 +32,8 @@ export const PostList: FC<PostListProps> = ({
   filter,
   setFilter,
   setFormVisible,
+  loading,
+  error,
 }) => {
   return (
     <div className={classes.postList}>
@@ -63,7 +70,20 @@ export const PostList: FC<PostListProps> = ({
         </Button>
       </div>
 
-      {list.length ? (
+      {}
+
+      {loading ? (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '50px',
+          }}
+        >
+          <Loader />
+        </div>
+      ) : list.length ? (
         <TransitionGroup className={classes.postListPosts}>
           {list.map((post) => (
             <CSSTransition key={post.id} timeout={300} classNames="post">
@@ -71,8 +91,13 @@ export const PostList: FC<PostListProps> = ({
             </CSSTransition>
           ))}
         </TransitionGroup>
+      ) : error ? (
+        <p className={classes.error}>
+          Произошла ошибка:{' '}
+          {error?.message ? error.message : 'Неизвестная ошибка'}
+        </p>
       ) : (
-        <p className="post-list__no-posts">Посты не найдены :(</p>
+        <p>Посты не найдены :(</p>
       )}
     </div>
   );

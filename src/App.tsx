@@ -1,21 +1,29 @@
 import './styles/App.css';
 
-import { initialPosts } from './assets/data/posts';
 import { PostList, PostListFilter } from './components/PostList/PostList';
 import { PostForm } from './components/PostForm/PostForm';
-import { Post } from './components/PostItem/PostItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Modal } from './components/Modal/Modal';
 import { usePosts } from './hooks/usePosts';
+import { Post } from './types/Post';
+import PostService from './api/PostService';
+import { useFetching } from './hooks/useFetching';
 
 function App() {
-  const [posts, setPosts] = useState<Post[]>(initialPosts);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [filter, setFilter] = useState<PostListFilter>({
     sort: 'id',
     query: '',
   });
   const [modal, setModal] = useState(false);
   const foundPosts = usePosts(posts, filter);
+  const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+    setPosts(await PostService.getAll());
+  });
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   function createPost(newPost: Post): void {
     setPosts([...posts, newPost]);
@@ -25,6 +33,16 @@ function App() {
   function removePost(post: Post) {
     setPosts(posts.filter((p) => p.id !== post.id));
   }
+
+  // async function fetchPosts() {
+  //   try {
+  //     setIsPostsLoading(true);
+  //     setPosts(await PostService.getAll());
+  //     setIsPostsLoading(false);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   return (
     <div className="App">
@@ -39,6 +57,8 @@ function App() {
         filter={filter}
         setFilter={setFilter}
         setFormVisible={setModal}
+        loading={isPostsLoading}
+        error={postError}
       />
     </div>
   );
