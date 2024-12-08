@@ -1,7 +1,8 @@
 import classes from './PostList.module.css';
 
 import { FC } from 'react';
-import { Post, PostItem, PostProps } from '../PostItem/PostItem';
+import { Post } from '../../types/Post.tsx';
+import { PostItem, PostProps } from '../PostItem/PostItem';
 import { TextInput } from '../UI/TextInput/TextInput';
 import { Select } from '../UI/Select/Select';
 import { Button } from '../UI/Button/Button';
@@ -11,6 +12,7 @@ export type PostListFilter = {
   sort: keyof Omit<Post, 'userId'>;
   query: string;
 };
+
 interface PostListProps {
   list: Post[];
   title: string;
