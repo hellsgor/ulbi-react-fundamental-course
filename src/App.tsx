@@ -8,6 +8,9 @@ import { usePosts } from './hooks/usePosts';
 import { Post } from './types/Post';
 import PostService from './api/PostService';
 import { useFetching } from './hooks/useFetching';
+import { getPagesCount } from './utils/getPagesCount';
+import { usePagination } from './hooks/usePagination';
+import { Pagination } from './components/Pagination/Pagination';
 
 function App() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -15,10 +18,16 @@ function App() {
     sort: 'id',
     query: '',
   });
+  const [totalPages, setTotalPages] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
   const [modal, setModal] = useState(false);
   const foundPosts = usePosts(posts, filter);
+
   const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
-    setPosts(await PostService.getAll());
+    const response = await PostService.getAll(limit, page);
+    setPosts(response.data);
+    setTotalPages(getPagesCount(response.postsCount, limit));
   });
 
   useEffect(() => {
@@ -49,6 +58,12 @@ function App() {
         setFormVisible={setModal}
         loading={isPostsLoading}
         error={postError}
+      />
+
+      <Pagination
+        pages={usePagination(totalPages)}
+        current={page}
+        setPage={setPage}
       />
     </div>
   );
