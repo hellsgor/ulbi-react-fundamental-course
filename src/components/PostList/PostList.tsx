@@ -6,7 +6,6 @@ import { PostItem, PostProps } from '../PostItem/PostItem';
 import { TextInput } from '../UI/TextInput/TextInput';
 import { Select } from '../UI/Select/Select';
 import { Button } from '../UI/Button/Button';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Loader } from '../UI/Loader/Loader.tsx';
 
 export type PostListFilter = {
@@ -70,8 +69,6 @@ export const PostList: FC<PostListProps> = ({
         </Button>
       </div>
 
-      {}
-
       {loading ? (
         <div
           style={{
@@ -84,13 +81,9 @@ export const PostList: FC<PostListProps> = ({
           <Loader />
         </div>
       ) : list.length ? (
-        <TransitionGroup className={classes.postListPosts}>
-          {list.map((post) => (
-            <CSSTransition key={post.id} timeout={300} classNames="post">
-              <PostItem remove={remove} post={post} />
-            </CSSTransition>
-          ))}
-        </TransitionGroup>
+        list.map((post) => (
+          <PostItem remove={remove} post={post} key={post.id} />
+        ))
       ) : error ? (
         <p className={classes.error}>
           Произошла ошибка:{' '}
