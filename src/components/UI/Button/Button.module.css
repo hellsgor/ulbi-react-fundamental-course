@@ -31,10 +31,6 @@
   color: yellowgreen;
 }
 
-.wide {
-  width: 100%;
-}
-
 @media (hover: hover) {
   .secondary:hover {
     background-color: yellowgreen;
@@ -43,9 +39,33 @@
   }
 }
 
+.wide {
+  width: 100%;
+}
+
+.transparent {
+  background-color: transparent;
+  color: black;
+  border-color: transparent;
+}
+
+@media (hover: hover) {
+  .transparent:hover {
+    color: yellowgreen;
+    background-color: transparent;
+    border-color: transparent;
+  }
+}
+
 .button:active {
   background-color: #709526;
   border-color: #709526;
+}
+
+.transparent:active {
+  color: #a2e61b;
+  border-color: transparent;
+  background-color: transparent;
 }
 
 .secondary:disabled {
@@ -54,7 +74,13 @@
   background-color: white;
 }
 
+.transparent:disabled {
+  color: lightgray;
+  background-color: transparent;
+}
+
 .button:disabled,
-.secondary:disabled {
+.secondary:disabled
+.transparent:disabled {
   cursor: default;
 }

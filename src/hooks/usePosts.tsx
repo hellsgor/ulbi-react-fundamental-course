@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
-import { Post } from '../components/PostItem/PostItem';
+
 import { PostListFilter } from '../components/PostList/PostList';
+import { PostList } from '../types/Post';
 
 export const useSortedPosts = (
-  posts: Post[],
+  posts: PostList,
   sort: PostListFilter['sort'],
-): Post[] =>
+): PostList =>
   useMemo(
     () =>
       [...posts].sort((postA, postB) =>
@@ -15,7 +16,7 @@ export const useSortedPosts = (
   );
 
 export const useFilteredPosts = (
-  posts: Post[],
+  posts: PostList,
   query: PostListFilter['query'],
 ) =>
   useMemo(
@@ -29,6 +30,6 @@ export const useFilteredPosts = (
   );
 
 export const usePosts = (
-  posts: Post[],
+  posts: PostList,
   { sort, query }: PostListFilter,
-): Post[] => useFilteredPosts(useSortedPosts(posts, sort), query);
+): PostList => useFilteredPosts(useSortedPosts(posts, sort), query);
