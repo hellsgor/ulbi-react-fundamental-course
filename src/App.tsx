@@ -24,14 +24,16 @@ function App() {
   const [modal, setModal] = useState(false);
   const foundPosts = usePosts(posts, filter);
 
-  const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
-    const response = await PostService.getAll(limit, page);
-    setPosts(response.data);
-    setTotalPages(getPagesCount(response.postsCount, limit));
-  });
+  const [fetchPosts, isPostsLoading, postError] = useFetching(
+    async (limit: number, page: number) => {
+      const response = await PostService.getAll(limit, page);
+      setPosts(response.data);
+      setTotalPages(getPagesCount(response.postsCount, limit));
+    },
+  );
 
   useEffect(() => {
-    fetchPosts();
+    fetchPosts(limit, page);
   }, []);
 
   function createPost(newPost: Post): void {
@@ -41,6 +43,11 @@ function App() {
 
   function removePost(post: Post) {
     setPosts(posts.filter((p) => p.id !== post.id));
+  }
+
+  function changePage(page: number) {
+    setPage(page);
+    fetchPosts(limit, page);
   }
 
   return (
@@ -63,7 +70,7 @@ function App() {
       <Pagination
         pages={usePagination(totalPages)}
         current={page}
-        setPage={setPage}
+        setPage={changePage}
       />
     </div>
   );
