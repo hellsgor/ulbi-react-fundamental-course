@@ -3,6 +3,7 @@ import classes from './PostItem.module.css';
 import { FC } from 'react';
 import { Button } from '../UI/Button/Button';
 import { Post } from '../../types/Post';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export interface PostProps {
   post: Post;
@@ -10,6 +11,13 @@ export interface PostProps {
 }
 
 export const PostItem: FC<PostProps> = ({ post, remove }) => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  function goToPost() {
+    navigate(`${pathname}/${post.id}`);
+  }
+
   return (
     <div className={classes.post} data-post-id={post.id}>
       <span className={classes.postId}>id: {post.id}</span>
@@ -21,6 +29,9 @@ export const PostItem: FC<PostProps> = ({ post, remove }) => {
       </div>
 
       <div className={classes.postActions}>
+        <Button mods={{ secondary: true }} onClick={goToPost}>
+          Открыть
+        </Button>
         <Button mods={{ secondary: true }} onClick={() => remove(post)}>
           Удалить
         </Button>
