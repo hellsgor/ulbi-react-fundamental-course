@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 
-export const Error = () => {
+const Error = () => {
   const location = useLocation();
   const fullUrl = `${window.location.origin}${location.pathname}${location.search}${location.hash}`;
 
@@ -17,3 +17,5 @@ export const Error = () => {
     </section>
   );
 };
+
+export default Error;
