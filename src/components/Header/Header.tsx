@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import classes from './Header.module.css';
 
 export type NavItem = {
@@ -18,13 +19,13 @@ export const Header = () => {
           <div className={classes.headerLogo}></div>
           <nav className={classes.headerNav}>
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.text}
-                href={item.path}
+                to={item.path}
                 className={classes.headerNavItem}
               >
                 {item.text}
-              </a>
+              </Link>
             ))}
           </nav>
           <div className={classes.headerContacts}>
