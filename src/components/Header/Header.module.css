@@ -1,0 +1,48 @@
+.header {
+  padding: 16px 0;
+  width: 100%;
+  border-bottom: 2px solid yellowgreen;
+}
+
+.headerWrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 32px;
+}
+
+.headerLogo {
+  width: 54px;
+  height: 54px;
+  background: url(https://i.ytimg.com/an/DzGdB9TTgFm8jRXn1tBdoA/featured_channel.jpg?v=5f6da3b4) no-repeat center;
+  background-size: cover;
+}
+
+.headerNav {
+  display: flex;
+  align-items: center;
+  column-gap: 24px;
+}
+
+.headerNavItem {
+  color: yellowgreen;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+@media(hover: hover) {
+  .headerNavItem:hover {
+    color: #a2e61b;
+  }
+}
+
+.headerNavItem:active {
+  color: #709526;
+}
+
+.headerNavItem:disabled {
+  color: lightgray;
+}
+
+.headerContacts {
+  margin-left: auto;
+}
