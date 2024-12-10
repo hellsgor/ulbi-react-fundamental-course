@@ -1,6 +1,6 @@
 import './styles/App.css';
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 
 import Posts from './pages/Posts';
 import About from './pages/About';
@@ -12,8 +12,9 @@ function App() {
       <Header />
       <main>
         <Routes>
-          <Route path="/about" element={<About />}></Route>
-          <Route path="/posts" element={<Posts />}></Route>
+          <Route path="/about" element={<About />} />
+          <Route path="/posts" element={<Posts />} />
+          <Route path="*" element={<Navigate to="/posts" replace />} />
         </Routes>
       </main>
     </BrowserRouter>
