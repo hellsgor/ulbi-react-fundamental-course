@@ -8,28 +8,28 @@
   column-gap: 32px;
 }
 
-.post__content {
+.postContent {
   display: flex;
   flex-direction: column;
 }
 
-.post__content > strong {
+.postContent > strong {
   margin-bottom: 4px;
   line-height: 1.4;
   max-width: 75%;
 }
 
-.post__content > span {
+.postContent > span {
   color: lightgray;
   font-size: 0.8rem;
   margin-bottom: 16px;
 }
 
-.post__content > p {
+.postContent > p {
   line-height: 1.4;
 }
 
-.post__id {
+.postId {
   width: fit-content;
   padding: 2px 4px;
   background-color: rgb(237, 237, 237);
@@ -39,4 +39,10 @@
   right: 0;
   top: 0;
   font-weight: 300;
+}
+
+.postActions {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
 }

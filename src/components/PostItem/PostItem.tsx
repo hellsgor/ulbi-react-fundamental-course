@@ -1,5 +1,6 @@
+import classes from './PostItem.module.css';
+
 import { FC } from 'react';
-import './PostItem.css';
 import { Button } from '../UI/Button/Button';
 import { Post } from '../../types/Post';
 
@@ -10,16 +11,16 @@ export interface PostProps {
 
 export const PostItem: FC<PostProps> = ({ post, remove }) => {
   return (
-    <div className="post" data-post-id={post.id}>
-      <span className="post__id">id: {post.id}</span>
+    <div className={classes.post} data-post-id={post.id}>
+      <span className={classes.postId}>id: {post.id}</span>
 
-      <div className="post__content" id={`${post.id}`}>
+      <div className={classes.postContent} id={`${post.id}`}>
         <strong>{post.title}</strong>
         <span>{new Date(post.id).toLocaleDateString()}</span>
         <p>{post.body}</p>
       </div>
 
-      <div className="post__btns">
+      <div className={classes.postActions}>
         <Button mods={{ secondary: true }} onClick={() => remove(post)}>
           Удалить
         </Button>
