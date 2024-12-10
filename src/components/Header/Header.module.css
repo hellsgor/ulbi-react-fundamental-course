@@ -29,6 +29,10 @@
   text-decoration: none;
 }
 
+.headerNavItem.active {
+  color: orange;
+}
+
 @media(hover: hover) {
   .headerNavItem:hover {
     color: #a2e61b;

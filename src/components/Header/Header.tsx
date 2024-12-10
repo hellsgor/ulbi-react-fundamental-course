@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import classes from './Header.module.css';
 
 export type NavItem = {
@@ -19,23 +19,28 @@ export const Header = () => {
           <div className={classes.headerLogo}></div>
           <nav className={classes.headerNav}>
             {navItems.map((item) => (
-              <Link
+              <NavLink
                 key={item.text}
                 to={item.path}
-                className={classes.headerNavItem}
+                className={({ isActive }) =>
+                  isActive
+                    ? `${classes.headerNavItem} ${classes.active}`
+                    : classes.headerNavItem
+                }
+                end
               >
                 {item.text}
-              </Link>
+              </NavLink>
             ))}
           </nav>
           <div className={classes.headerContacts}>
-            <a
+            <Link
               target="_blank"
-              href="https://www.youtube.com/@UlbiTV"
+              to="https://www.youtube.com/@UlbiTV"
               className={classes.headerNavItem}
             >
               visit channel
-            </a>
+            </Link>
           </div>
         </div>
       </div>
