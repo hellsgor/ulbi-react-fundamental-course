@@ -1,35 +1,70 @@
-import axios from 'axios';
-import { PostList, PostListSchema } from '../types/Post';
+import axios, { AxiosResponse } from 'axios';
+import { Post, PostList, PostListSchema, PostSchema } from '../types/Post';
+import { ZodSchema } from 'zod';
 
-export interface PostServiceResponse {
+export interface PostServiceFetch {
+  url: string;
+  schema: ZodSchema;
+  params?: Record<string, unknown>;
+}
+
+export interface PostServiceResponseAll {
   data: PostList;
   postsCount: string;
 }
 
 export default class PostService {
-  static async getAll(
-    limit: number = 10,
-    page: number = 1,
-  ): Promise<PostServiceResponse> {
+  private static API_URL: string = 'https://jsonplaceholder.typicode.com';
+  private static ENDPOINTS: Record<string, string> = {
+    posts: '/posts',
+  };
+
+  private static async fetchData<T>(
+    url: string,
+    schema: ZodSchema<T>,
+    params?: Record<string, unknown>,
+  ): Promise<AxiosResponse<T>> {
     const response = await axios
-      .get('https://jsonplaceholder.typicode.com/posts', {
-        params: {
-          _limit: limit,
-          _page: page,
-        },
-      })
+      .get(url, params)
       .then((response) => {
         if (response.status >= 400) throw new Error();
         return response;
       })
       .then((response) => {
-        PostListSchema.parse(response.data);
-        return {
-          data: response.data,
-          postsCount: response.headers['x-total-count'],
-        };
+        schema.parse(response.data);
+        return response;
       });
 
     return response;
+  }
+
+  static async getAll(
+    limit: number = 10,
+    page: number = 1,
+  ): Promise<PostServiceResponseAll> {
+    const response = await this.fetchData(
+      `${this.API_URL}${this.ENDPOINTS.posts}`,
+      PostListSchema,
+      {
+        params: {
+          _limit: limit,
+          _page: page,
+        },
+      },
+    );
+
+    return {
+      data: response.data,
+      postsCount: response.headers['x-total-count'],
+    };
+  }
+
+  static async getById(id: Post['id']): Promise<Post> {
+    const response = await this.fetchData(
+      `${this.API_URL}${this.ENDPOINTS.posts}${id}`,
+      PostSchema,
+    );
+
+    return response.data;
   }
 }
