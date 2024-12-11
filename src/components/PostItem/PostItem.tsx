@@ -32,7 +32,7 @@ export const PostItem: FC<PostProps> = ({ post, remove }) => {
         <Button mods={{ secondary: true }} onClick={goToPost}>
           Открыть
         </Button>
-        <Button mods={{ secondary: true }} onClick={() => remove(post)}>
+        <Button mods={{ danger: true }} onClick={() => remove(post)}>
           Удалить
         </Button>
       </div>
