@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { Button } from '../UI/Button/Button';
 import { Post } from '../../types/Post';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { getDate } from '../../utils/getDate';
 
 export interface PostProps {
   post: Post;
@@ -24,13 +25,7 @@ export const PostItem: FC<PostProps> = ({ post, remove }) => {
 
       <div className={classes.postContent} id={`${post.id}`}>
         <strong>{post.title}</strong>
-        <span>
-          {new Date(post.id).toLocaleDateString('en-US', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-          })}
-        </span>
+        <span>{getDate(post.id, 'en-US')}</span>
         <p>{post.body}</p>
       </div>
 
