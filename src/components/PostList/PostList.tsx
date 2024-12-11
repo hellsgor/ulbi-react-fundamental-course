@@ -41,11 +41,11 @@ export const PostList: FC<PostListProps> = ({
       <div className={classes.postListControls}>
         <Select
           options={[
-            { value: 'title', text: 'По заголовкам' },
-            { value: 'body', text: 'По описанию' },
+            { value: 'title', text: 'by headlines' },
+            { value: 'body', text: 'by descriptions' },
           ]}
-          defaultValue={{ value: 'id', text: 'По дате' }}
-          label={'Сортировка:'}
+          defaultValue={{ value: 'id', text: 'by date' }}
+          label={'sort:'}
           id={'post-sort'}
           value={filter.sort}
           onChange={(selectedSort) =>
@@ -54,9 +54,9 @@ export const PostList: FC<PostListProps> = ({
         />
 
         <TextInput
-          label="Поиск по постам:"
+          label="search:"
           id="post-search"
-          placeholder="Введите запрос"
+          placeholder="write query"
           mods={{ horizontal: true }}
           onChange={(event) =>
             setFilter({ ...filter, query: event.target.value })
@@ -65,7 +65,7 @@ export const PostList: FC<PostListProps> = ({
         />
 
         <Button type="button" onClick={() => setFormVisible(true)}>
-          Создать пост
+          Add post
         </Button>
       </div>
 

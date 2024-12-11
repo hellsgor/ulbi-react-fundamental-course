@@ -24,16 +24,25 @@ export const PostItem: FC<PostProps> = ({ post, remove }) => {
 
       <div className={classes.postContent} id={`${post.id}`}>
         <strong>{post.title}</strong>
-        <span>{new Date(post.id).toLocaleDateString()}</span>
+        <span>
+          {new Date(post.id).toLocaleDateString('en-US', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          })}
+        </span>
         <p>{post.body}</p>
       </div>
 
       <div className={classes.postActions}>
-        <Button mods={{ secondary: true }} onClick={goToPost}>
-          Открыть
+        <Button mods={{ secondary: true, wide: true }} onClick={goToPost}>
+          Open post
         </Button>
-        <Button mods={{ danger: true }} onClick={() => remove(post)}>
-          Удалить
+        <Button
+          mods={{ danger: true, wide: true }}
+          onClick={() => remove(post)}
+        >
+          Delete
         </Button>
       </div>
     </div>
