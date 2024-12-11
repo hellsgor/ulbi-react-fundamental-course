@@ -3,7 +3,7 @@ import classes from './Button.module.css';
 import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 import { getClassNames } from '../../../utils/generateClassNames';
 
-export type ButtonMods = 'secondary' | 'wide' | 'transparent';
+export type ButtonMods = 'secondary' | 'wide' | 'transparent' | 'danger';
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   mods?: Partial<Record<ButtonMods, boolean>>;
