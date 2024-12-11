@@ -59,9 +59,9 @@ export default class PostService {
     };
   }
 
-  static async getById(id: Post['id']): Promise<Post> {
+  static async getById(id: string): Promise<Post> {
     const response = await this.fetchData(
-      `${this.API_URL}${this.ENDPOINTS.posts}${id}`,
+      `${this.API_URL}${this.ENDPOINTS.posts}/${id}`,
       PostSchema,
     );
 
