@@ -1,0 +1,6 @@
+.error {
+  color: tomato;
+  padding: 64px 0;
+  text-align: center;
+  font-size: 2rem;
+}

@@ -7,6 +7,7 @@ import { TextInput } from '../UI/TextInput/TextInput';
 import { Select } from '../UI/Select/Select';
 import { Button } from '../UI/Button/Button';
 import { Loader } from '../UI/Loader/Loader.tsx';
+import { ErrorView } from '../UI/ErrorView/ErrorView.tsx';
 
 export type PostListFilter = {
   sort: keyof Omit<Post, 'userId'>;
@@ -85,12 +86,9 @@ export const PostList: FC<PostListProps> = ({
           <PostItem remove={remove} post={post} key={post.id} />
         ))
       ) : error ? (
-        <p className={classes.error}>
-          Произошла ошибка:{' '}
-          {error?.message ? error.message : 'Неизвестная ошибка'}
-        </p>
+        <ErrorView error={error} />
       ) : (
-        <p>Посты не найдены :(</p>
+        <p className={classes.notFound}>Posts are not found :(</p>
       )}
     </div>
   );
