@@ -1,0 +1,18 @@
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  width: 100%;
+}
+
+.dataContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
+}
+
+.dataContainer > span {
+  color: lightgray;
+  font-size: 12px;
+}
