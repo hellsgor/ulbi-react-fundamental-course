@@ -7,6 +7,7 @@ import { Loader } from '../components/UI/Loader/Loader';
 import { ErrorView } from '../components/UI/ErrorView/ErrorView';
 import { PostDetail } from '../components/PostDetail/PostDetail';
 import { CommentListType } from '../types/Comment';
+import { CommentList } from '../components/CommentList/CommentList';
 
 const PostPage = () => {
   const { id } = useParams();
@@ -28,8 +29,6 @@ const PostPage = () => {
     fetchComments(id);
   }, [id]);
 
-  console.log(comments);
-
   return (
     <section>
       <div className="container">
@@ -40,7 +39,11 @@ const PostPage = () => {
             <>
               <PostDetail post={post} />
               <hr />
-              <h3>Post comments:</h3>
+              {comments ? (
+                <CommentList comments={comments} />
+              ) : (
+                <p>Comments on the post were not found :(</p>
+              )}
             </>
           ) : (
             <ErrorView error={error || commentsError} />
