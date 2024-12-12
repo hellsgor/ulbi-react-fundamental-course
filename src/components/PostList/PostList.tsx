@@ -71,16 +71,7 @@ export const PostList: FC<PostListProps> = ({
       </div>
 
       {loading ? (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: '50px',
-          }}
-        >
-          <Loader />
-        </div>
+        <Loader />
       ) : list.length ? (
         list.map((post) => (
           <PostItem remove={remove} post={post} key={post.id} />
