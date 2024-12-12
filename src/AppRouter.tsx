@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import About from './pages/About';
 import Posts from './pages/Posts';
 import Error from './pages/Error';
-import PostPage from './pages/PostPage/PostPage';
+import PostPage from './pages/PostPage';
 
 export const AppRouter = () => (
   <Routes>

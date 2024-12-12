@@ -5,6 +5,7 @@
   background:conic-gradient(#0000 10%, yellowgreen);
   -webkit-mask:radial-gradient(farthest-side,#0000 calc(100% - 16px),#000 0);
   animation: rotate 1s infinite linear;
+  margin: 0 auto;
 }
 
 @keyframes rotate {

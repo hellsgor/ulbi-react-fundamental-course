@@ -1,0 +1,49 @@
+.comment {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment {
+  position: relative;
+  border: 2px solid yellowgreen;
+  row-gap: 8px;
+  padding: 16px;
+}
+
+.id {
+  width: fit-content;
+  padding: 2px 4px;
+  background-color: rgb(237, 237, 237);
+  color: rgb(69, 69, 69);
+  font-size: 8px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-weight: 300;
+}
+
+.author > a {
+  color: yellowgreen;
+  transition: color 0.3s ease-in-out;
+}
+
+@media (hover: hover) {
+  .author > a:hover {
+    color: #a2e61b;
+  }
+}
+
+.author > a:active {
+  color: #709526;
+}
+
+.author::before {
+  content: 'Author: ';
+  color: lightgray;
+}
+
+.id::before {
+  content: 'comment id: ';
+}
+
+
