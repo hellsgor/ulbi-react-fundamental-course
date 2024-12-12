@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { Post, PostList, PostListSchema, PostSchema } from '../types/Post';
 import { ZodSchema } from 'zod';
+import { CommentListSchema, CommentListType } from '../types/Comment';
 
 export interface PostServiceFetch {
   url: string;
@@ -17,6 +18,7 @@ export default class PostService {
   private static API_URL: string = 'https://jsonplaceholder.typicode.com';
   private static ENDPOINTS: Record<string, string> = {
     posts: '/posts',
+    comments: '/comments',
   };
 
   private static async fetchData<T>(
@@ -63,6 +65,15 @@ export default class PostService {
     const response = await this.fetchData(
       `${this.API_URL}${this.ENDPOINTS.posts}/${id}`,
       PostSchema,
+    );
+
+    return response.data;
+  }
+
+  static async getComments(id: string): Promise<CommentListType> {
+    const response = await this.fetchData(
+      `${this.API_URL}${this.ENDPOINTS.posts}/${id}${this.ENDPOINTS.comments}`,
+      CommentListSchema,
     );
 
     return response.data;
