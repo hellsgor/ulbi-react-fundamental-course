@@ -59,7 +59,7 @@ function Posts() {
           <PostList
             remove={removePost}
             list={foundPosts}
-            title="Список постов"
+            title="Posts list"
             filter={filter}
             setFilter={setFilter}
             setFormVisible={setModal}

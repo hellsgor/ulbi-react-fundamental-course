@@ -1,7 +1,10 @@
+import classes from './PostItem.module.css';
+
 import { FC } from 'react';
-import './PostItem.css';
 import { Button } from '../UI/Button/Button';
 import { Post } from '../../types/Post';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { getDate } from '../../utils/getDate';
 
 export interface PostProps {
   post: Post;
@@ -9,19 +12,32 @@ export interface PostProps {
 }
 
 export const PostItem: FC<PostProps> = ({ post, remove }) => {
-  return (
-    <div className="post" data-post-id={post.id}>
-      <span className="post__id">id: {post.id}</span>
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
-      <div className="post__content" id={`${post.id}`}>
+  function goToPost() {
+    navigate(`${pathname}/${post.id}`);
+  }
+
+  return (
+    <div className={classes.post} data-post-id={post.id}>
+      <span className={classes.postId}>id: {post.id}</span>
+
+      <div className={classes.postContent} id={`${post.id}`}>
         <strong>{post.title}</strong>
-        <span>{new Date(post.id).toLocaleDateString()}</span>
+        <span>{getDate(post.id, 'en-US')}</span>
         <p>{post.body}</p>
       </div>
 
-      <div className="post__btns">
-        <Button mods={{ secondary: true }} onClick={() => remove(post)}>
-          Удалить
+      <div className={classes.postActions}>
+        <Button mods={{ secondary: true, wide: true }} onClick={goToPost}>
+          Open post
+        </Button>
+        <Button
+          mods={{ danger: true, wide: true }}
+          onClick={() => remove(post)}
+        >
+          Delete
         </Button>
       </div>
     </div>
