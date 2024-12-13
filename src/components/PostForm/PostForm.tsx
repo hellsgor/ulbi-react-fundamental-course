@@ -26,7 +26,7 @@ export const PostForm: FC<PostFormProps> = ({ create }) => {
       <h2>Создать пост</h2>
       <form>
         <TextInput
-          placeholder="Заголовок поста"
+          placeholder="Заголовок по™ста"
           type="text"
           name="post-title"
           onChange={(event) => setPost({ ...post, title: event.target.value })}
