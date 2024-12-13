@@ -3,7 +3,7 @@ import './styles/App.css';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Header } from './components/Header/Header';
-import { AppRouter } from './AppRouter';
+import { AppRouter } from './router/AppRouter';
 
 function App() {
   return (
