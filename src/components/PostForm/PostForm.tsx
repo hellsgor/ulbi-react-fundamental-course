@@ -3,7 +3,7 @@ import classes from './PostFrom.module.css';
 import { FC, useState } from 'react';
 import { TextInput } from '../UI/TextInput/TextInput';
 import { Button } from '../UI/Button/Button';
-import { Post } from '../PostItem/PostItem';
+import { Post } from '../../types/Post';
 
 export interface PostFormProps {
   create: (newPost: Post) => void;
