@@ -4,7 +4,7 @@ export const PostSchema = z.object({
   id: z.number(),
   title: z.string(),
   body: z.string(),
-  userId: z.number(),
+  userId: z.number().optional(),
 });
 export type Post = z.infer<typeof PostSchema>;
 
