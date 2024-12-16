@@ -38,19 +38,8 @@ const Login = () => {
               autoComplete="off"
             />
             <div style={{ display: 'flex', columnGap: '24px' }}>
-              <Button
-                type="button"
-                mods={{ secondary: true }}
-                onClick={() => setIsAuth(true)}
-              >
+              <Button type="button" onClick={() => setIsAuth(true)}>
                 Sign in
-              </Button>
-              <Button
-                type="button"
-                mods={{ secondary: true }}
-                onClick={() => setIsAuth(false)}
-              >
-                Sign out
               </Button>
             </div>
           </form>
