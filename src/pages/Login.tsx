@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/UI/Button/Button';
 import { TextInput } from '../components/UI/TextInput/TextInput';
 import { useAuth } from '../hooks/useAuth';
 
 const Login = () => {
   const { isAuth, setIsAuth } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <section>
@@ -38,7 +40,13 @@ const Login = () => {
               autoComplete="off"
             />
             <div style={{ display: 'flex', columnGap: '24px' }}>
-              <Button type="button" onClick={() => setIsAuth(true)}>
+              <Button
+                type="button"
+                onClick={() => {
+                  setIsAuth(true);
+                  navigate('/posts');
+                }}
+              >
                 Sign in
               </Button>
             </div>
