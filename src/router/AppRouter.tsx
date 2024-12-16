@@ -2,9 +2,22 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Error from '../pages/Error';
 import { routes } from '.';
 import { useAuth } from '../hooks/useAuth';
+import { Loader } from '../components/UI/Loader/Loader';
 
 export const AppRouter = () => {
-  const { isAuth } = useAuth();
+  const { isAuth, isLoading } = useAuth();
+
+  if (isLoading) {
+    return (
+      <section>
+        <div className="container">
+          <div className="sectionWrapper">
+            <Loader />
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <Routes>
