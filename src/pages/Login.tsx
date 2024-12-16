@@ -11,6 +11,12 @@ const Login = () => {
         <div className="sectionWrapper">
           <h1>Authorization</h1>
 
+          <p style={isAuth ? { color: 'yellowgreen' } : { color: 'tomato' }}>
+            {isAuth
+              ? 'You are already authorized. Use navigation menu'
+              : 'You need to log in'}
+          </p>
+
           <form
             style={{ display: 'flex', flexDirection: 'column', rowGap: '16px' }}
           >
