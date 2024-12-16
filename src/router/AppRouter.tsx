@@ -1,9 +1,10 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { routes } from '.';
 import Error from '../pages/Error';
+import { routes } from '.';
+import { useAuth } from '../hooks/useAuth';
 
 export const AppRouter = () => {
-  const isAuth = false;
+  const { isAuth } = useAuth();
 
   return (
     <Routes>
