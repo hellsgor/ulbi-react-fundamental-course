@@ -3,7 +3,7 @@ import { TextInput } from '../components/UI/TextInput/TextInput';
 import { useAuth } from '../hooks/useAuth';
 
 const Login = () => {
-  const { setIsAuth } = useAuth();
+  const { isAuth, setIsAuth } = useAuth();
 
   return (
     <section>
@@ -18,7 +18,12 @@ const Login = () => {
           </p>
 
           <form
-            style={{ display: 'flex', flexDirection: 'column', rowGap: '16px' }}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              rowGap: '16px',
+              maxWidth: '400px',
+            }}
           >
             <TextInput
               type="text"
@@ -33,10 +38,18 @@ const Login = () => {
               autoComplete="off"
             />
             <div style={{ display: 'flex', columnGap: '24px' }}>
-              <Button type="button" onClick={() => setIsAuth(true)}>
+              <Button
+                type="button"
+                mods={{ secondary: true }}
+                onClick={() => setIsAuth(true)}
+              >
                 Sign in
               </Button>
-              <Button type="button" onClick={() => setIsAuth(false)}>
+              <Button
+                type="button"
+                mods={{ secondary: true }}
+                onClick={() => setIsAuth(false)}
+              >
                 Sign out
               </Button>
             </div>
