@@ -1,8 +1,9 @@
+import React from 'react';
+
 import About from '../pages/About';
 import PostPage from '../pages/PostPage';
 import Posts from '../pages/Posts';
-import Error from '../pages/Error';
-import React from 'react';
+import Login from '../pages/Login';
 
 export interface Route {
   path: string;
@@ -15,8 +16,8 @@ export interface Route {
 
 export const routes: Route[] = [
   { path: '/about', component: About },
+  { path: '/login', component: Login },
   { path: '/posts', component: Posts },
   { path: '/posts/:id', component: PostPage },
   { path: '/', redirect: { to: '/posts', replace: true } },
-  { path: '*', component: Error },
 ];
