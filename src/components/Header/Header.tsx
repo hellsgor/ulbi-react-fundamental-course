@@ -1,24 +1,36 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import classes from './Header.module.css';
+import { Button } from '../UI/Button/Button';
+import { useAuth } from '../../hooks/useAuth';
 
 export type NavItem = {
   text: string;
   path: string;
   attrs?: React.AnchorHTMLAttributes<HTMLAnchorElement>;
-  mods?: string[];
+  mods?: string[] | (() => string[]);
 };
 
 export const Header = () => {
+  const { isAuth, setIsAuth } = useAuth();
+  const navigate = useNavigate();
+
   const navItems: NavItem[] = [
-    { text: 'About', path: 'about' },
-    { text: 'Posts', path: 'posts' },
+    {
+      text: 'About',
+      path: 'about',
+      mods: () => (isAuth ? [] : [classes.disabled]),
+    },
+    {
+      text: 'Posts',
+      path: 'posts',
+      mods: () => (isAuth ? [] : [classes.disabled]),
+    },
     {
       text: 'Visit chanel',
       path: 'https://www.youtube.com/@UlbiTV',
       attrs: { target: '_blank' },
       mods: [classes.wide, classes.external],
     },
-    { text: 'Login', path: 'login', mods: [classes.right] },
   ];
 
   return (
@@ -28,9 +40,13 @@ export const Header = () => {
           <div className={classes.headerLogo}></div>
           <nav className={classes.headerNav}>
             {navItems.map((item) => {
-              const classNames = item.mods?.length
-                ? [classes.headerNavItem, ...item.mods].join(' ')
-                : classes.headerNavItem;
+              const classNames = [
+                classes.headerNavItem,
+                ...(typeof item.mods === 'function'
+                  ? item.mods()
+                  : item.mods || []),
+              ].join(' ');
+
               return (
                 <NavLink
                   key={item.text}
@@ -45,6 +61,19 @@ export const Header = () => {
                 </NavLink>
               );
             })}
+
+            <div style={{ marginLeft: 'auto' }}></div>
+            {isAuth ? (
+              <Link
+                to="/login"
+                className={classes.headerNavItem}
+                onClick={() => setIsAuth(false)}
+              >
+                Sign Out
+              </Link>
+            ) : (
+              <Button onClick={() => navigate('/login')}>Sign In</Button>
+            )}
           </nav>
         </div>
       </div>

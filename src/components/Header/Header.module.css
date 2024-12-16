@@ -60,7 +60,10 @@
   right: -12px;
 }
 
-
+.headerNavItem.disabled {
+  color: lightgray;
+  pointer-events: none;
+}
 
 @media(hover: hover) {
   .headerNavItem:hover {
