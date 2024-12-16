@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Button } from '../components/UI/Button/Button';
 import { TextInput } from '../components/UI/TextInput/TextInput';
 import { useAuth } from '../hooks/useAuth';
@@ -7,7 +7,9 @@ const Login = () => {
   const { isAuth, setIsAuth } = useAuth();
   const navigate = useNavigate();
 
-  return (
+  return isAuth ? (
+    <Navigate to="/posts" />
+  ) : (
     <section>
       <div className="container">
         <div className="sectionWrapper">
@@ -44,6 +46,7 @@ const Login = () => {
                 type="button"
                 onClick={() => {
                   setIsAuth(true);
+                  localStorage.setItem('auth', 'true');
                   navigate('/posts');
                 }}
               >

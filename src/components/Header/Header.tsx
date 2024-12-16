@@ -67,7 +67,10 @@ export const Header = () => {
               <Link
                 to="/login"
                 className={classes.headerNavItem}
-                onClick={() => setIsAuth(false)}
+                onClick={() => {
+                  setIsAuth(false);
+                  localStorage.removeItem('auth');
+                }}
               >
                 Sign Out
               </Link>
