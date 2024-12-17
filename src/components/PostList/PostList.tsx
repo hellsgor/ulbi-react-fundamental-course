@@ -70,17 +70,17 @@ export const PostList: FC<PostListProps> = ({
         </Button>
       </div>
 
-      {loading ? (
-        <Loader />
-      ) : list.length ? (
+      {list.length ? (
         list.map((post) => (
           <PostItem remove={remove} post={post} key={post.id} />
         ))
       ) : error ? (
         <ErrorView error={error} />
       ) : (
-        <p className={classes.notFound}>Posts are not found :(</p>
+        !loading && <p className={classes.notFound}>Posts are not found :(</p>
       )}
+
+      {loading && <Loader />}
     </div>
   );
 };
