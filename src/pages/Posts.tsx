@@ -25,14 +25,14 @@ function Posts() {
   const [fetchPosts, isPostsLoading, postError] = useFetching(
     async (limit: number, page: number) => {
       const response = await PostService.getAll(limit, page);
-      setPosts(response.data);
+      setPosts([...posts, ...response.data]);
       setTotalPages(getPagesCount(response.postsCount, limit));
     },
   );
 
   useEffect(() => {
     fetchPosts(limit, page);
-  }, []);
+  }, [page]);
 
   function createPost(newPost: Post): void {
     setPosts([...posts, newPost]);
@@ -45,7 +45,6 @@ function Posts() {
 
   function changePage(page: number) {
     setPage(page);
-    fetchPosts(limit, page);
   }
 
   return (
