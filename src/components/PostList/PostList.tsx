@@ -1,6 +1,6 @@
 import classes from './PostList.module.css';
 
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { Post } from '../../types/Post.tsx';
 import { PostItem, PostProps } from '../PostItem/PostItem';
 import { TextInput } from '../UI/TextInput/TextInput';
@@ -23,6 +23,7 @@ interface PostListProps {
   setFormVisible: (value: true) => void;
   loading: boolean;
   error: Error | null;
+  setPage: () => void;
 }
 
 export const PostList: FC<PostListProps> = ({
@@ -34,7 +35,27 @@ export const PostList: FC<PostListProps> = ({
   setFormVisible,
   loading,
   error,
+  setPage,
 }) => {
+  const lastElement = useRef<HTMLDivElement>(null);
+  const observer = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    if (observer.current) observer.current.disconnect();
+    if (loading) return;
+
+    const callback = function (entries, observer) {
+      console.log(entries[0]);
+      if (entries[0].isIntersecting) {
+        console.log('элемент виден');
+        setPage();
+      }
+    };
+
+    observer.current = new IntersectionObserver(callback, { threshold: 1 });
+    if (lastElement.current) observer.current.observe(lastElement.current);
+  }, [loading]);
+
   return (
     <div className={classes.postList}>
       <h2 style={{ textAlign: 'center' }}>{title}</h2>
@@ -81,6 +102,11 @@ export const PostList: FC<PostListProps> = ({
       )}
 
       {loading && <Loader />}
+
+      <div
+        ref={lastElement}
+        style={{ height: '1px', backgroundColor: 'transparent' }}
+      />
     </div>
   );
 };

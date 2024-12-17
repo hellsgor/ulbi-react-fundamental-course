@@ -43,8 +43,14 @@ function Posts() {
     setPosts(posts.filter((p) => p.id !== post.id));
   }
 
-  function changePage(page: number) {
-    setPage(page);
+  function changePage(p: number | null = null) {
+    console.log('page: ', page);
+
+    if (p === null && page + 1 <= totalPages) {
+      setPage(page + 1);
+    } else {
+      if (p !== null) setPage(p);
+    }
   }
 
   return (
@@ -64,6 +70,7 @@ function Posts() {
             setFormVisible={setModal}
             loading={isPostsLoading}
             error={postError}
+            setPage={changePage}
           />
 
           <Pagination
