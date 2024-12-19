@@ -24,8 +24,20 @@ function Posts() {
 
   const [fetchPosts, isPostsLoading, postError] = useFetching(
     async (limit: number, page: number) => {
+      if (page <= 0) {
+        setPosts([]);
+        setPage(1);
+        return;
+      }
+
       const response = await PostService.getAll(limit, page);
-      setPosts([...posts, ...response.data]);
+      setPosts([
+        // ...posts,
+        // ...response.data.filter((newPost) => {
+        //   return !posts.some((oldPost) => oldPost.id === newPost.id);
+        // }),
+        ...response.data,
+      ]);
       setTotalPages(getPagesCount(response.postsCount, limit));
     },
   );
@@ -33,6 +45,10 @@ function Posts() {
   useEffect(() => {
     fetchPosts(limit, page);
   }, [page]);
+
+  useEffect(() => {
+    changePage(0);
+  }, [limit]);
 
   function createPost(newPost: Post): void {
     setPosts([...posts, newPost]);
@@ -44,12 +60,12 @@ function Posts() {
   }
 
   function changePage(p: number | null = null) {
-    console.log('page: ', page);
-
     if (p === null && page + 1 <= totalPages) {
       setPage(page + 1);
     } else {
-      if (p !== null) setPage(p);
+      if (p !== null) {
+        setPage(p);
+      }
     }
   }
 
@@ -70,13 +86,15 @@ function Posts() {
             setFormVisible={setModal}
             loading={isPostsLoading}
             error={postError}
-            setPage={changePage}
+            // setPage={changePage}
           />
 
           <Pagination
             pages={usePagination(totalPages)}
             current={page}
             setPage={changePage}
+            limit={limit}
+            changeLimit={setLimit}
           />
         </div>
       </div>
