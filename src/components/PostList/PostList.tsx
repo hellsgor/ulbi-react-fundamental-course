@@ -8,7 +8,7 @@ import { Select } from '../UI/Select/Select';
 import { Button } from '../UI/Button/Button';
 import { Loader } from '../UI/Loader/Loader.tsx';
 import { ErrorView } from '../UI/ErrorView/ErrorView.tsx';
-import { useObserver } from '../../hooks/useObserver.tsx';
+// import { useObserver } from '../../hooks/useObserver.tsx';
 
 export type PostListFilter = {
   sort: keyof Omit<Post, 'userId'>;
@@ -24,7 +24,7 @@ interface PostListProps {
   setFormVisible: (value: true) => void;
   loading: boolean;
   error: Error | null;
-  setPage: () => void;
+  // setPage: () => void;
 }
 
 export const PostList: FC<PostListProps> = ({
@@ -36,11 +36,11 @@ export const PostList: FC<PostListProps> = ({
   setFormVisible,
   loading,
   error,
-  setPage,
+  // setPage,
 }) => {
   const lastElement = useRef<HTMLDivElement>(null);
 
-  useObserver(lastElement, loading, setPage);
+  // useObserver(lastElement, loading, setPage);
 
   return (
     <div className={classes.postList}>
