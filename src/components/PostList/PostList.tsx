@@ -1,6 +1,6 @@
 import classes from './PostList.module.css';
 
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 import { Post } from '../../types/Post.tsx';
 import { PostItem, PostProps } from '../PostItem/PostItem';
 import { TextInput } from '../UI/TextInput/TextInput';
@@ -8,6 +8,7 @@ import { Select } from '../UI/Select/Select';
 import { Button } from '../UI/Button/Button';
 import { Loader } from '../UI/Loader/Loader.tsx';
 import { ErrorView } from '../UI/ErrorView/ErrorView.tsx';
+import { useObserver } from '../../hooks/useObserver.tsx';
 
 export type PostListFilter = {
   sort: keyof Omit<Post, 'userId'>;
@@ -23,6 +24,7 @@ interface PostListProps {
   setFormVisible: (value: true) => void;
   loading: boolean;
   error: Error | null;
+  setPage: () => void;
 }
 
 export const PostList: FC<PostListProps> = ({
@@ -34,7 +36,12 @@ export const PostList: FC<PostListProps> = ({
   setFormVisible,
   loading,
   error,
+  setPage,
 }) => {
+  const lastElement = useRef<HTMLDivElement>(null);
+
+  useObserver(lastElement, loading, setPage);
+
   return (
     <div className={classes.postList}>
       <h2 style={{ textAlign: 'center' }}>{title}</h2>
@@ -70,17 +77,22 @@ export const PostList: FC<PostListProps> = ({
         </Button>
       </div>
 
-      {loading ? (
-        <Loader />
-      ) : list.length ? (
+      {list.length ? (
         list.map((post) => (
           <PostItem remove={remove} post={post} key={post.id} />
         ))
       ) : error ? (
         <ErrorView error={error} />
       ) : (
-        <p className={classes.notFound}>Posts are not found :(</p>
+        !loading && <p className={classes.notFound}>Posts are not found :(</p>
       )}
+
+      {loading && <Loader />}
+
+      <div
+        ref={lastElement}
+        style={{ height: '1px', backgroundColor: 'transparent' }}
+      />
     </div>
   );
 };
