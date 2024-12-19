@@ -1,6 +1,6 @@
 import classes from './PostList.module.css';
 
-import { FC, useEffect, useRef } from 'react';
+import { FC, useRef } from 'react';
 import { Post } from '../../types/Post.tsx';
 import { PostItem, PostProps } from '../PostItem/PostItem';
 import { TextInput } from '../UI/TextInput/TextInput';
@@ -8,6 +8,7 @@ import { Select } from '../UI/Select/Select';
 import { Button } from '../UI/Button/Button';
 import { Loader } from '../UI/Loader/Loader.tsx';
 import { ErrorView } from '../UI/ErrorView/ErrorView.tsx';
+import { useObserver } from '../../hooks/useObserver.tsx';
 
 export type PostListFilter = {
   sort: keyof Omit<Post, 'userId'>;
@@ -38,23 +39,8 @@ export const PostList: FC<PostListProps> = ({
   setPage,
 }) => {
   const lastElement = useRef<HTMLDivElement>(null);
-  const observer = useRef<IntersectionObserver | null>(null);
 
-  useEffect(() => {
-    if (observer.current) observer.current.disconnect();
-    if (loading) return;
-
-    const callback = function (entries, observer) {
-      console.log(entries[0]);
-      if (entries[0].isIntersecting) {
-        console.log('элемент виден');
-        setPage();
-      }
-    };
-
-    observer.current = new IntersectionObserver(callback, { threshold: 1 });
-    if (lastElement.current) observer.current.observe(lastElement.current);
-  }, [loading]);
+  useObserver(lastElement, loading, setPage);
 
   return (
     <div className={classes.postList}>
